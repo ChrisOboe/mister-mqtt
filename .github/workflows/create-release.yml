@@ -14,7 +14,7 @@ jobs:
     - run: nix build .#release
     - uses: softprops/action-gh-release@v2
       with:
-        name: ${{ GITHUB_SHA }}
+        name: ${{ github.sha }}
         files: |
           ./result/mister-mqtt
           ./result/mister-mqtt.json
