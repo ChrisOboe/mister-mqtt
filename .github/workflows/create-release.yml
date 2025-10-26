@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
 jobs:
   create-release:
     runs-on: ubuntu-latest
@@ -12,9 +16,7 @@ jobs:
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - run: nix build .#release
-    - uses: softprops/action-gh-release@v2
+    - uses: googleapis/release-please-action@v4
       with:
-        name: ${{ github.sha }}
-        files: |
-          ./result/mister-mqtt
-          ./result/mister-mqtt.json
+        release-type: go
+        path: ./result
