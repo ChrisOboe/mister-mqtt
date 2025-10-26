@@ -19,4 +19,17 @@ jobs:
     - uses: googleapis/release-please-action@v4
       with:
         release-type: go
-        path: ./result
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./result/mister-mqtt.json
+        asset_name: mister-mqtt.json
+        tag: ${{ github.ref }}
+        overwrite: true
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./result/mister-mqtt
+        asset_name: mister-mqtt
+        tag: ${{ github.ref }}
+        overwrite: true
