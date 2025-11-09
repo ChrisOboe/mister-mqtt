@@ -42,7 +42,7 @@
                 files."daemons/mister-mqtt" = {
                   hash = builtins.readFile (
                     pkgs-amd64.runCommand ''hash'' { }
-                      ''${pkgs-amd64.coreutils}/bin/md5sum "${armv7l-linux.default}/bin/mister-mqtt" | ${pkgs-amd64.coreutils}/bin/cut -z -c -32 > $out''
+                      ''${pkgs-amd64.coreutils}/bin/md5sum "${armv7l-linux.default}/bin/mister-mqtt" | ${pkgs-amd64.coreutils}/bin/cut -c -32 | ${pkgs-amd64.coreutils}/bin/head -c -1 > $out''
                   );
                   size = builtins.fromJSON (
                     builtins.readFile (
