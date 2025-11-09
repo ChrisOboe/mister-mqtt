@@ -39,5 +39,5 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ./result/mister-mqtt.json
         asset_name: mister-mqtt.json
-        tag: mister-downloader
+        tag: mister-update
         overwrite: true
