@@ -11,25 +11,33 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     steps:
+      # install nix
     - uses: actions/checkout@v5
     - uses: cachix/install-nix-action@v31
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      # build everything
     - run: nix build .#release
+      # create a new github release
+    - run: |
+        VER=$(cat ./result/version)
+        echo "VERSION=$VER" >> $GITHUB_ENV
     - uses: googleapis/release-please-action@v4
       with:
         release-type: go
-    - uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ./result/mister-mqtt.json
-        asset_name: mister-mqtt.json
-        tag: ${{ github.ref }}
-        overwrite: true
+      # upload binary to new release
     - uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ./result/mister-mqtt
         asset_name: mister-mqtt
-        tag: ${{ github.ref }}
+        tag: ${{ env.VERSION }}
+        overwrite: true
+      # update downloader json 
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./result/mister-mqtt.json
+        asset_name: mister-mqtt.json
+        tag: mister-downloader
         overwrite: true
