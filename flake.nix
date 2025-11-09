@@ -31,6 +31,7 @@
             };
             release = pkgs-amd64.runCommand "release" { } ''
               mkdir $out
+              echo "${version}" >> $out/version
               cp "${downloader}" "$out/mister-mqtt.json"
               cp "${armv7l-linux.default}/bin/mister-mqtt" "$out/mister-mqtt"
             '';
