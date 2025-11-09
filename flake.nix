@@ -62,6 +62,7 @@
             name = "mister-mqtt";
             src = ./.;
             vendorHash = null;
+            env.CGO_ENABLED = 0;
           };
         };
 
